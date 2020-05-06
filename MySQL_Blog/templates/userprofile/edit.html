@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% load staticfiles %}
+{% block title %} User Info {% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+                <div class="col-md-4">User name: {{ user.username }}</div>
+            <br>
+            {% if profile.avatar %}
+                <div class="col-md-4">Avatar</div>
+                <img src="{{ profile.avatar.url }}" style="max-width: 20%; border-radius: 15%;" class="col-md-4">
+            {% else %}
+                <h5 class="col-md-4">No avatar</h5>
+            {% endif %}
+            <br>
+
+
+
+
+            <form method="post" action="." enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- avatar -->
+                <div class="form-group">
+                    <label for="avatar">Upload avatar</label>
+                    <input type="file" class="form-control-file" name="avatar" id="avatar">
+                </div>
+
+                <!-- phone -->
+                <div class="form-group col-md-4">
+                    <label for="phone">Phone number</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ profile.phone }}">
+                </div>
+                
+                <!-- bio -->
+                <div class="form-group col-md-4">
+                    <label for="bio">Introduction</label>
+                    <textarea type="text" class="form-control" id="bio" name="bio" rows="12">{{ profile.bio }}</textarea>
+                </div>
+                
+                <!-- 提交按钮 -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
